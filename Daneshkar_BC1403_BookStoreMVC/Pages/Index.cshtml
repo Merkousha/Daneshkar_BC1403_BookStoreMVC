@@ -1,0 +1,25 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+
+<h2>لیست کتاب ها</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>نام کتاب</th>
+        <th>امتیاز</th>
+    </tr>
+    @foreach (var book in Model.books)
+    {
+        <tr>
+            <td>@book.Id</td>
+            <td>@book.Name</td>
+            <td>@book.AvgRating</td>
+        </tr>
+    }
+</table>
