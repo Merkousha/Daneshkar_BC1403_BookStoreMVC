@@ -22,4 +22,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\db\refhub.db" />
+  </ItemGroup>
+
 </Project>

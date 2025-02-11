@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Daneshkar_BC1403_BookStoreMVC.Models;
+﻿using Daneshkar_BC1403_BookStoreMVC.Models;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +7,7 @@ builder.Services.AddRazorPages();
 
 // اضافه کردن DbContext
 builder.Services.AddDbContext<RefhubContext>(options =>
-    options.UseSqlite("Data Source=refhub.db"));
+    options.UseSqlite("Data Source==wwwroot/db/refhub.db"));
 
 var app = builder.Build();
 
