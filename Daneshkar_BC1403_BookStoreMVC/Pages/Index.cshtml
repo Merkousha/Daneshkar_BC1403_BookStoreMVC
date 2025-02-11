@@ -11,15 +11,18 @@
 <table>
     <tr>
         <th>ID</th>
+        <th>Image</th>
         <th>نام کتاب</th>
-        <th>امتیاز</th>
+        <th>سال انتشار</th>
     </tr>
     @foreach (var book in Model.books)
     {
         <tr>
+            
             <td>@book.Id</td>
+            <td> <img src="Https://s3.refhub.ir/@book.Thumb"  style="max-height:150px;" /></td>
             <td>@book.Name</td>
-            <td>@book.AvgRating</td>
+            <td>@book.Year</td>
         </tr>
     }
 </table>
