@@ -1,0 +1,37 @@
+﻿@APIEndpoint_HostAddress = http://localhost:5241
+
+### GET Request - دریافت تمام پیش‌بینی‌های آب و هوا
+GET {{APIEndpoint_HostAddress}}/weatherforecast
+Accept: application/json
+
+###
+
+### POST Request - ایجاد یک پیش‌بینی جدید
+POST {{APIEndpoint_HostAddress}}/weatherforecast
+Content-Type: application/json
+
+{
+    "Date": "2025-02-24",
+    "TemperatureC": 20,
+    "Summary": "Mild"
+}
+
+###
+
+### PUT Request - به‌روزرسانی پیش‌بینی در ایندکس 0
+PUT {{APIEndpoint_HostAddress}}/weatherforecast/0
+Content-Type: application/json
+
+{
+    "Date": "2025-02-24",
+    "TemperatureC": 25,
+    "Summary": "Warm"
+}
+
+###
+
+### DELETE Request - حذف پیش‌بینی در ایندکس 0
+DELETE {{APIEndpoint_HostAddress}}/weatherforecast/0
+Accept: application/json
+
+###
