@@ -6,18 +6,16 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace APIEndpoint.Controllers;
 
-[Route("api/v1/[controller]/[Action]")]
-[ApiController]
-public class AnoramlCategories : ControllerBase
+public class ConventionCategoriesController : ControllerBase
 {
     private readonly RefhubContext _context;
 
-    public AnoramlCategories(RefhubContext context)
+    public ConventionCategoriesController(RefhubContext context)
     {
         _context = context;
     }
 
-    // GET: api/AnormalCategories
+    // GET: api/categories
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
     {
@@ -26,7 +24,8 @@ public class AnoramlCategories : ControllerBase
     }
 
 
-    // GET: api/AnormalCategories/{id}
+
+    // GET: api/categories/{id}
     /// <summary>
     /// دریافت اطلاعات یک دسته‌بندی بر اساس ID
     /// </summary>
@@ -48,7 +47,7 @@ public class AnoramlCategories : ControllerBase
         return category;
     }
 
-    // POST: api/AnormalCategories
+    // POST: api/categories
     [HttpPost]
     public async Task<ActionResult<Category>> PostCategory(Category category)
     {
@@ -57,7 +56,7 @@ public class AnoramlCategories : ControllerBase
         return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
     }
 
-    // PUT: api/AnormalCategories/{id}
+    // PUT: api/categories/{id}
     [HttpPut("{id}")]
     public async Task<IActionResult> PutCategory(int id, Category category)
     {
@@ -87,7 +86,7 @@ public class AnoramlCategories : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/AnormalCategories/{id}
+    // DELETE: api/categories/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCategory(int id)
     {

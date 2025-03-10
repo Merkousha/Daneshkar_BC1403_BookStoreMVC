@@ -22,6 +22,7 @@ public class CategoriesController : ControllerBase
     public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
     {
         var categories = await _context.Categories.Take(10).ToListAsync();
+        var url = Url.Action("GetCategoriesProtected", "Categories");
         return Ok(categories);
     }
 

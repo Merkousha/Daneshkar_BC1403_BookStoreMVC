@@ -83,7 +83,47 @@ public class Program
         app.UseAuthorization();
 
         // اعمال Routing های سیستم
+        app.UseRouting();
+        app.UseEndpoints(static endpoints =>
+        {
+            // مسیر GET برای دریافت همه دسته‌بندی‌ها
+            endpoints.MapControllerRoute(
+                name: "categories-list",
+                pattern: "api/ConventionCategories",
+                defaults: new { controller = "ConventionCategories", action = "GetCategories" }
+            );
+
+            // مسیر GET برای دریافت یک دسته‌بندی با شناسه
+            endpoints.MapControllerRoute(
+                name: "category-details",
+                pattern: "api/ConventionCategories/{id}",
+                defaults: new { controller = "ConventionCategories", action = "GetCategory" }
+            );
+
+            // مسیر POST برای ایجاد دسته‌بندی جدید
+            endpoints.MapControllerRoute(
+                name: "category-create",
+                pattern: "api/ConventionCategories",
+                defaults: new { controller = "ConventionCategories", action = "PostCategory" }
+            );
+
+            // مسیر PUT برای به‌روزرسانی دسته‌بندی
+            endpoints.MapControllerRoute(
+                name: "category-update",
+                pattern: "api/ConventionCategories/{id}",
+                defaults: new { controller = "ConventionCategories", action = "PutCategory" }
+            );
+
+            // مسیر DELETE برای حذف دسته‌بندی
+            endpoints.MapControllerRoute(
+                name: "category-delete",
+                pattern: "api/ConventionCategories/{id}",
+                defaults: new { controller = "ConventionCategories", action = "DeleteCategory" }
+            );
+        });
+
         app.MapControllers();
+
 
         app.Run();
     }
