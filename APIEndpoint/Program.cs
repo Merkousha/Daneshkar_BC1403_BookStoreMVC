@@ -82,7 +82,7 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-
+        // اعمال Routing های سیستم
         app.MapControllers();
 
         app.Run();
