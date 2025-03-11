@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using APIEndpoint.ModelBinders;
 
 namespace APIEndpoint;
 
@@ -15,7 +16,11 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers(options =>
+        {
+            options.ModelBinderProviders.Insert(0, new AuthorModelBinderProvider());
+        });
+        builder.Services.AddTransient<AuthorModelBinder>();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
