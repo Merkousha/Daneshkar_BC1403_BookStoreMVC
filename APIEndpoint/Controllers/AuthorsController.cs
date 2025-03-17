@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIEndpoint.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -29,6 +30,7 @@ namespace API.Controllers
         }
 
         // GET: api/Authors/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Author>> GetAuthor(int id)
         {

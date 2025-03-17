@@ -27,8 +27,8 @@ public class CategoriesController : ControllerBase
     }
 
 
-    [HttpGet("Protected")]
     [Authorize]
+    [HttpGet("Protected")]
     public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesProtected()
     {
         var categories = await _context.Categories.Take(10).ToListAsync();
