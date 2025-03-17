@@ -5,12 +5,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using APIEndpoint.ModelBinders;
+using API.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace APIEndpoint;
 
-using API.Models;
-using Microsoft.AspNetCore.Identity;
 public class Program
 {
     public static void Main(string[] args)
@@ -18,13 +17,52 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services.AddDbContext<RefhubContext>(options =>
+            options.UseSqlite("Data Source=../Daneshkar_BC1403_BookStoreMVC/wwwroot/db/refhub.db"));
+
+        // Configure Identity - MUST be before Authentication
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
+        {
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequiredLength = 6;
+            options.User.RequireUniqueEmail = true;
+        })
+        .AddEntityFrameworkStores<RefhubContext>()
+        .AddDefaultTokenProviders();
+
+        // Configure Authentication
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "https://yourdomain.com",
+                ValidAudience = "https://yourdomain.com",
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes("YourSuperSecureSecretKey@2024#Refhub"))
+            };
+        });
 
         builder.Services.AddControllers(options =>
         {
             options.ModelBinderProviders.Insert(0, new AuthorModelBinderProvider());
         });
+
         builder.Services.AddTransient<AuthorModelBinder>();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+        // Configure Swagger
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
         {
@@ -42,40 +80,21 @@ public class Program
             });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
                 }
-            },
-            new string[] {}
-        }
-    });
+            });
         });
-        
-        
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-     .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://yourdomain.com",
-            ValidAudience = "https://yourdomain.com",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSuperSecureSecretKey@2024#Refhub"))
-        };
-    });
 
-
-        builder.Services.AddDbContext<RefhubContext>(options =>
-            options.UseSqlite("Data Source==../Daneshkar_BC1403_BookStoreMVC/wwwroot/db/refhub.db"));
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -87,47 +106,39 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();     
+        // Order matters for these middleware
+        app.UseAuthentication();
         app.UseAuthorization();
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-          .AddEntityFrameworkStores<RefhubContext>()
-          .AddDefaultTokenProviders();
 
-
-
-        // اعمال Routing های سیستم
+        // Configure routing
         app.UseRouting();
-        app.UseEndpoints(static endpoints =>
+
+        app.UseEndpoints(endpoints =>
         {
-            // مسیر GET برای دریافت همه دسته‌بندی‌ها
             endpoints.MapControllerRoute(
                 name: "categories-list",
                 pattern: "api/ConventionCategories",
                 defaults: new { controller = "ConventionCategories", action = "GetCategories" }
             );
 
-            // مسیر GET برای دریافت یک دسته‌بندی با شناسه
             endpoints.MapControllerRoute(
                 name: "category-details",
                 pattern: "api/ConventionCategories/{id}",
                 defaults: new { controller = "ConventionCategories", action = "GetCategory" }
             );
 
-            // مسیر POST برای ایجاد دسته‌بندی جدید
             endpoints.MapControllerRoute(
                 name: "category-create",
                 pattern: "api/ConventionCategories",
                 defaults: new { controller = "ConventionCategories", action = "PostCategory" }
             );
 
-            // مسیر PUT برای به‌روزرسانی دسته‌بندی
             endpoints.MapControllerRoute(
                 name: "category-update",
                 pattern: "api/ConventionCategories/{id}",
                 defaults: new { controller = "ConventionCategories", action = "PutCategory" }
             );
 
-            // مسیر DELETE برای حذف دسته‌بندی
             endpoints.MapControllerRoute(
                 name: "category-delete",
                 pattern: "api/ConventionCategories/{id}",
@@ -136,7 +147,6 @@ public class Program
         });
 
         app.MapControllers();
-
 
         app.Run();
     }
