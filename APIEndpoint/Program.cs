@@ -5,9 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using APIEndpoint.ModelBinders;
+using Microsoft.AspNetCore.Identity;
 
 namespace APIEndpoint;
 
+using API.Models;
+using Microsoft.AspNetCore.Identity;
 public class Program
 {
     public static void Main(string[] args)
@@ -84,8 +87,13 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
+        app.UseAuthentication();     
         app.UseAuthorization();
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+          .AddEntityFrameworkStores<RefhubContext>()
+          .AddDefaultTokenProviders();
+
+
 
         // اعمال Routing های سیستم
         app.UseRouting();
