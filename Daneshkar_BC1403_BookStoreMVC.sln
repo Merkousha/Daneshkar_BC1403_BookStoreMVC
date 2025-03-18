@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "APIEndpoint\API.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPI", "MinimalAPI\MinimalAPI.csproj", "{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0361FC15-AA20-4394-B673-485C0490A8E2}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3B418A03-D17C-4B12-A72B-68C374A0EDAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0361FC15-AA20-4394-B673-485C0490A8E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0361FC15-AA20-4394-B673-485C0490A8E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0361FC15-AA20-4394-B673-485C0490A8E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0361FC15-AA20-4394-B673-485C0490A8E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B418A03-D17C-4B12-A72B-68C374A0EDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B418A03-D17C-4B12-A72B-68C374A0EDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B418A03-D17C-4B12-A72B-68C374A0EDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B418A03-D17C-4B12-A72B-68C374A0EDAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
