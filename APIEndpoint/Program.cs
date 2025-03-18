@@ -22,12 +22,31 @@ public class Program
             options.UseSqlite("Data Source=../Daneshkar_BC1403_BookStoreMVC/wwwroot/db/refhub.db"));
 
         // Configure Identity
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>()
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>(
+            options =>
+            {
+                // Configure identity options here if needed
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 6;
+
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+            }
+            )
             .AddEntityFrameworkStores<RefhubContext>()
             .AddDefaultTokenProviders();
 
         // Configure Authentication
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+        })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters

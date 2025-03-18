@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using APIEndpoint.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIEndpoint.Controllers;
 
@@ -27,7 +28,7 @@ public class CategoriesController : ControllerBase
     }
 
 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("Protected")]
     public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesProtected()
     {
