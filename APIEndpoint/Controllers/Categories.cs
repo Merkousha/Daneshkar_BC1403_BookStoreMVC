@@ -28,7 +28,7 @@ public class CategoriesController : ControllerBase
     }
 
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles ="Admin")]
     [HttpGet("Protected")]
     public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesProtected()
     {

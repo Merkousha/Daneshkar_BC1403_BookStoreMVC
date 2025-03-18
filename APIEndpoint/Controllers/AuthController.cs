@@ -14,16 +14,19 @@ namespace APIEndpoint.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole<long>> _roleManager;
         private readonly JwtService _jwtService;
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+             RoleManager<IdentityRole<long>> roleManager , 
             JwtService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtService = jwtService;
+            _roleManager = roleManager;
         }
 
         [HttpPost("register")]
@@ -31,6 +34,14 @@ namespace APIEndpoint.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(new AuthResponseDto { Success = false, Message = "Invalid input data" });
+
+            // Create a new role using the custom type
+            var adminRole = new IdentityRole<long>
+            {
+                Name = "Admin"
+            };
+
+            await _roleManager.CreateAsync(adminRole);
 
             var user = new ApplicationUser
             {
@@ -41,9 +52,9 @@ namespace APIEndpoint.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
-
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Admin");
                 var token = _jwtService.GenerateJwtToken(user);
                 return Ok(new AuthResponseDto
                 {
