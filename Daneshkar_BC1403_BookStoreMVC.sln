@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC", "Daneshkar_BC1403_BookStoreMVC\MVC.csproj", "{8FE08E5B-46DB-44FC-86B8-96A32F99E1EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daneshkar_BC1403_BookStoreMVC", "Daneshkar_BC1403_BookStoreMVC\Daneshkar_BC1403_BookStoreMVC.csproj", "{8FE08E5B-46DB-44FC-86B8-96A32F99E1EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoints", "Endpoints", "{9176B3B7-6692-4876-96C6-9EBCBD630434}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "APIEndpoint\API.csproj", "{E6CB876D-BD5D-4880-84AA-10BD5072CBF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPI", "MinimalAPI\MinimalAPI.csproj", "{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0361FC15-AA20-4394-B673-485C0490A8E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B333E911-DD77-4B4D-8238-6EBEEB8A40E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0361FC15-AA20-4394-B673-485C0490A8E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0361FC15-AA20-4394-B673-485C0490A8E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0361FC15-AA20-4394-B673-485C0490A8E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0361FC15-AA20-4394-B673-485C0490A8E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

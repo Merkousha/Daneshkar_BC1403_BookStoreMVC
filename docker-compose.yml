@@ -1,0 +1,6 @@
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: APIEndpoint/Dockerfile
