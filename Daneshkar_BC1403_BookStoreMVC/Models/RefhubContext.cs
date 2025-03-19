@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MVC;
 
 namespace Daneshkar_BC1403_BookStoreMVC.Models;
 
-public partial class RefhubContext : DbContext
+public partial class RefhubContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
 {
     public RefhubContext()
     {
@@ -26,6 +29,23 @@ public partial class RefhubContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder); 
+
+        // Configure Identity tables
+        modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+        {
+            entity.HasKey(l => new { l.LoginProvider, l.ProviderKey });
+        });
+
+        modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+        {
+            entity.HasKey(r => new { r.UserId, r.RoleId });
+        });
+
+        modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+        {
+            entity.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
+        });
         modelBuilder.Entity<Author>(entity =>
         {
             entity.ToTable("Author");
