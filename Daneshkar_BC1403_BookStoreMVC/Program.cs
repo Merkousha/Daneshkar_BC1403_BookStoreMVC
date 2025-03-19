@@ -1,4 +1,4 @@
-﻿using Daneshkar_BC1403_BookStoreMVC.Models;
+using Daneshkar_BC1403_BookStoreMVC.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MVC;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("RefhubContextConnection") ?? throw new InvalidOperationException("Connection string 'RefhubContextConnection' not found.");;
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -13,6 +14,8 @@ builder.Services.AddRazorPages();
 // اضافه کردن DbContext
 builder.Services.AddDbContext<RefhubContext>(options =>
     options.UseSqlite("Data Source==wwwroot/db/refhub.db"));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<RefhubContext>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
 {

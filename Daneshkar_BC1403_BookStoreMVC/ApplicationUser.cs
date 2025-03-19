@@ -5,7 +5,7 @@ namespace MVC
     public class ApplicationUser : IdentityUser<long>
 
     {
-        public string FullName { get; set; }
+        public string FullName { get; set; } = string.Empty;
 
     }
 

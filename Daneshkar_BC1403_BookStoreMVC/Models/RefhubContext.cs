@@ -29,6 +29,23 @@ public partial class RefhubContext : IdentityDbContext<ApplicationUser, Identity
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder); 
+
+        // Configure Identity tables
+        modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+        {
+            entity.HasKey(l => new { l.LoginProvider, l.ProviderKey });
+        });
+
+        modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+        {
+            entity.HasKey(r => new { r.UserId, r.RoleId });
+        });
+
+        modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+        {
+            entity.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
+        });
         modelBuilder.Entity<Author>(entity =>
         {
             entity.ToTable("Author");
