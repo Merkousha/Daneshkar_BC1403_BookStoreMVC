@@ -35,10 +35,30 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">بازگشت به سایت</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">خروج</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-light">خوش آمدید، @User.Identity.Name</span>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+                                    <button type="submit" class="nav-link btn btn-link text-light">خروج</button>
+                                </form>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">ورود</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">ثبت‌نام</a>
+                            </li>
+                        }
                     </ul>
+
+
                 </div>
             </div>
         </nav>
