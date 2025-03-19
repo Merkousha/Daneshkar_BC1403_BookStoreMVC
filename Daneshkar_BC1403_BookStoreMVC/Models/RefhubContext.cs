@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MVC;
 
 namespace Daneshkar_BC1403_BookStoreMVC.Models;
 
-public partial class RefhubContext : DbContext
+public partial class RefhubContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
 {
     public RefhubContext()
     {
