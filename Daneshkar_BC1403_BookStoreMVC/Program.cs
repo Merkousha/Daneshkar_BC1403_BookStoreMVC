@@ -1,4 +1,5 @@
 ﻿using Daneshkar_BC1403_BookStoreMVC.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,10 @@ builder.Services.AddRazorPages();
 // اضافه کردن DbContext
 builder.Services.AddDbContext<RefhubContext>(options =>
     options.UseSqlite("Data Source==wwwroot/db/refhub.db"));
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<RefhubContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -23,9 +28,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 
-app.UseAuthorization();
-app.UseRouting();
 
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     // افزودن مسیریابی برای Area
