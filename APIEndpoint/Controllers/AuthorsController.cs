@@ -23,6 +23,7 @@ namespace API.Controllers
         }
 
         // GET: api/Authors
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
         {
